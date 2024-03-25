@@ -8,8 +8,8 @@ def clean_html_tags(html_text):
     soup = BeautifulSoup(html_text, 'html.parser')
     text = soup.get_text()
     
-    # Eliminar caracteres especiales utilizando expresiones regulares
-    text = re.sub(r'[^\w\s]', '', text)
+    # Eliminar caracteres especiales, números y símbolos utilizando expresiones regulares
+    text = re.sub(r'[^a-zA-Z\s]', '', text)  # Eliminar caracteres que no sean letras o espacios en blanco
     
     # Convertir el texto a minúsculas
     text = text.lower()
@@ -36,6 +36,7 @@ def clean_html_tags(html_text):
     clean_text = ' '.join(clean_tokens)
     
     return clean_text, len(clean_tokens), stopwords_removed, vocabulary_size
+
 
 def extract_contexts_from_html(html_file, contexts_file):
     # Abrir y leer el archivo HTML
