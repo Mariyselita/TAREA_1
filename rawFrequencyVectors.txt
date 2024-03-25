@@ -1,13 +1,16 @@
-epigrama 5 0 0 0 0 0 0 0 0 0 0 0 0
-editorial 0 3 0 0 0 0 0 0 0 0 0 0 0
-jorge 0 0 5 0 0 0 0 0 0 0 0 0 0
-torres 0 0 0 5 0 0 0 0 0 0 0 0 0
-httpwwwexcelsiorcommxarthtml 0 0 0 0 1 0 0 0 0 0 0 0 0
-hombre 0 0 0 0 0 4 0 0 0 0 0 0 0
-empez 0 0 0 0 0 0 3 0 0 0 0 0 0
-hace 0 0 0 0 0 0 0 1 0 0 0 0 0
-mansilla 0 0 0 0 0 0 0 0 5 0 0 0 0
-junio 0 0 0 0 0 0 0 0 0 5 0 0 0
-jueves 0 0 0 0 0 0 0 0 0 0 4 0 0
-hablar 0 0 0 0 0 0 0 0 0 0 0 2 0
-excelsior 0 0 0 0 0 0 0 0 0 0 0 0 2
+partir 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+repblica 0 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ideas 0 0 3 0 0 0 0 0 0 0 0 0 0 0 0 0
+grupo 0 0 0 5 0 0 0 0 0 0 0 0 0 0 0 0
+programa 0 0 0 0 2 0 0 0 0 0 0 0 0 0 0 0
+ciudadanos 0 0 0 0 0 5 0 0 0 0 0 0 0 0 0 0
+accin 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0
+tambin 0 0 0 0 0 0 0 4 0 0 0 0 0 0 0 0
+atenas 0 0 0 0 0 0 0 0 3 0 0 0 0 0 0 0
+tierra 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0
+romana 0 0 0 0 0 0 0 0 0 0 5 0 0 0 0 0
+personaje 0 0 0 0 0 0 0 0 0 0 0 5 0 0 0 0
+escogen 0 0 0 0 0 0 0 0 0 0 0 0 5 0 0 0
+votar 0 0 0 0 0 0 0 0 0 0 0 0 0 5 0 0
+ofrece 0 0 0 0 0 0 0 0 0 0 0 0 0 0 4 0
+partido 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5
