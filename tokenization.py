@@ -1,22 +1,9 @@
 from bs4 import BeautifulSoup
 import nltk
 from writer import writeDict
-from clean import clean_html_tags, extract_contexts_from_html
 
-# Descargar los recursos necesarios de NLTK
-nltk.download('punkt')
-
-def buildRawFreqVectors(html_file, contexts_file):
-    # Limpiar el HTML y obtener tokens limpios
-    cleaned_text, _, _, _ = clean_html_tags(html_file)
-    
-    # Tokenizar el texto limpio
-    tokens = nltk.word_tokenize(cleaned_text)
-    vocabulary = list(set(tokens))
-    
-    rawFreqVectorsDict = {}
-    
-    # Leer los contextos del archivo de texto y procesarlos
+def get_contexts_from_file(contexts_file):
+    contexts = {}
     with open(contexts_file, 'r', encoding='utf-8') as f:
         for line in f:
             line = line.strip()  # Eliminar espacios en blanco adicionales
@@ -24,20 +11,51 @@ def buildRawFreqVectors(html_file, contexts_file):
                 parts = line.split()  # Separar la línea en palabras
                 word = parts[0]  # La primera palabra es la palabra clave
                 context = parts[1:]  # El resto de las palabras son el contexto
-                vector = [context.count(word) for word in vocabulary]  # Construir el vector de frecuencia
-                rawFreqVectorsDict[word] = vector  # Agregar el vector al diccionario
-    
+                contexts[word] = context  # Agregar el contexto al diccionario
+    return contexts
+
+def buildRawFreqVectors(contexts):
+    # Obtener todas las palabras únicas de los contextos
+    vocabulary = list(set(word for context in contexts.values() for word in context))
+
+    rawFreqVectorsDict = {}
+
+    # Inicializar los vectores de frecuencia
+    for word in vocabulary:
+        rawFreqVectorsDict[word] = [0] * len(vocabulary)
+
+    # Calcular la frecuencia de cada palabra en todos los contextos
+    for context in contexts.values():
+        for word in vocabulary:
+            rawFreqVectorsDict[word][vocabulary.index(word)] += context.count(word)
+
     return rawFreqVectorsDict
+
+
+def getContext(vocabTokenizado, palabra, contextos=False):    
+    context_left = []
+    context_right = []
+    for i in range(len(vocabTokenizado)):
+        if vocabTokenizado[i] == palabra:
+            left = ' '.join(vocabTokenizado[max(0, i-8):i])
+            right = ' '.join(vocabTokenizado[i+1:min(i+9, len(vocabTokenizado))])
+            context_left.append(left)
+            context_right.append(right)
+    if contextos:
+        return context_left, context_right
+    else:
+        return "Contextos izquierdos: {}\nContextos derechos: {}".format(context_left, context_right)
 
 if __name__ == '__main__':
     html_file = 'e990624_mod.htm'
     contexts_file = 'contexts.txt'
     
-    # Extraer contextos del archivo HTML y escribirlos en el archivo 'contexts.txt'
-    extract_contexts_from_html(html_file, contexts_file)
+    # Obtener contextos del archivo de texto
+    contexts = get_contexts_from_file(contexts_file)
     
     # Construir vectores de frecuencia a partir de los contextos
-    rawFreqVectorsDict = buildRawFreqVectors(html_file, contexts_file)
+    rawFreqVectorsDict = buildRawFreqVectors(contexts)
     
     # Escribir los vectores de frecuencia en el archivo 'rawFrequencyVectors.txt'
     writeDict(rawFreqVectorsDict, 'rawFrequencyVectors.txt')
+   
