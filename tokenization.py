@@ -1,23 +1,17 @@
 from bs4 import BeautifulSoup
 import nltk
 from writer import writeDict
-from clean import extract_contexts_from_html
-
+from clean import clean_html_tags, extract_contexts_from_html
 
 # Descargar los recursos necesarios de NLTK
 nltk.download('punkt')
 
 def buildRawFreqVectors(html_file, contexts_file):
-    # Abrir y leer el archivo HTML
-    with open(html_file, 'r', encoding='utf-8') as f:
-        html_content = f.read().lower()
+    # Limpiar el HTML y obtener tokens limpios
+    cleaned_text, _, _, _ = clean_html_tags(html_file)
     
-    # Parsear el HTML usando BeautifulSoup
-    soup = BeautifulSoup(html_content, 'lxml')
-    text = soup.get_text()
-    
-    # Tokenizar el texto
-    tokens = nltk.word_tokenize(text)
+    # Tokenizar el texto limpio
+    tokens = nltk.word_tokenize(cleaned_text)
     vocabulary = list(set(tokens))
     
     rawFreqVectorsDict = {}
@@ -39,5 +33,11 @@ if __name__ == '__main__':
     html_file = 'e990624_mod.htm'
     contexts_file = 'contexts.txt'
     
+    # Extraer contextos del archivo HTML y escribirlos en el archivo 'contexts.txt'
+    extract_contexts_from_html(html_file, contexts_file)
+    
+    # Construir vectores de frecuencia a partir de los contextos
     rawFreqVectorsDict = buildRawFreqVectors(html_file, contexts_file)
+    
+    # Escribir los vectores de frecuencia en el archivo 'rawFrequencyVectors.txt'
     writeDict(rawFreqVectorsDict, 'rawFrequencyVectors.txt')
